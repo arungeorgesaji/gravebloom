@@ -1,4 +1,5 @@
 require("components/button")
+require("components/text")
 menu = require("rooms/menu")
 
 function love.load()

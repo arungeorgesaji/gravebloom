@@ -1,9 +1,11 @@
 Button = {}
 Button.__index = Button
 
-function Button:new(text, x, y, width, height, action)
+function Button:new(text, x, y, width, height, action, size)
     width = width or 200
     height = height or 60
+
+    size = size or 24
 
     local screenW = love.graphics.getWidth()
     local screenH = love.graphics.getHeight()
@@ -26,7 +28,8 @@ function Button:new(text, x, y, width, height, action)
         width = width,
         height = height,
         action = action,
-        hover = false
+        hover = false,
+        font = love.graphics.newFont(size)
     }
     setmetatable(btn, Button)
     return btn
@@ -56,5 +59,7 @@ function Button:draw()
     love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
 
     love.graphics.setColor(0, 0, 0)
+
+    love.graphics.setFont(self.font)
     love.graphics.printf(self.text, self.x, self.y + self.height/3, self.width, "center")
 end

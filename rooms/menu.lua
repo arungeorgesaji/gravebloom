@@ -41,11 +41,11 @@ end
 
 function menu.load()
     title = Text:new("GraveBloom", nil, 30, 30) 
-    startButton = Button:new("Start", nil, 100, 500, 60, startGame)
-    optionsButton = Button:new("Options", nil, 200, 500, 60, showOptions)
-    achievementsButton = Button:new("Achievements", nil, 300, 500, 60, showAchievements)
-    extrasButton = Button:new("Extras", nil, 400, 500, 60, showExtras)
-    quitButton = Button:new("Quit", nil, 500, 500, 60, quitGame)
+    startButton = Button:new("Start", nil, 100, 500, 60, startGame, 24, "neon")
+    optionsButton = Button:new("Options", nil, 200, 500, 60, showOptions, 24, "neon")
+    achievementsButton = Button:new("Achievements", nil, 300, 500, 60, showAchievements, 24, "neon")
+    extrasButton = Button:new("Extras", nil, 400, 500, 60, showExtras, 24, "neon")
+    quitButton = Button:new("Quit", nil, 500, 500, 60, quitGame, 24, "neon")
     
     for i = 1, 150 do
         table.insert(effects.stars, {

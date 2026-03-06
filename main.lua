@@ -1,6 +1,8 @@
-require("components/button")
-require("components/text")
-menu = require("rooms/menu")
+require("components.button")
+require("components.text")
+
+menu = require("rooms.menu")
+options = require("rooms.options")
 
 function love.load()
     menuMusic = love.audio.newSource("audio/menu_music.mp3", "stream")
@@ -9,26 +11,38 @@ function love.load()
     menuMusic:setVolume(0.5)
     menuMusic:play()
 
-    gameState = "menu"
+    room = "menu"
     menu.load()
 end
 
 function love.update(dt)
-    if gameState == "menu" then
+    if room == "menu" then
         menu.update(dt)
-    elseif gameState == "game" then
+    elseif room == "options" then
+        options.update(dt)
     end
 end
 
 function love.draw()
-    if gameState == "menu" then
+    if room == "menu" then
         menu.draw()
-    elseif gameState == "game" then
+    elseif room == "options" then
+        options.draw()
     end
 end
 
 function love.mousepressed(x, y, button)
-    if gameState == "menu" then
+    if room == "menu" then
         menu.mousepressed(x, y, button)
+    elseif room == "options" then
+        options.mousepressed(x, y, button)
+    end
+end
+
+function love.mousereleased(x, y, button)
+    if room == "menu" then
+        menu.mousereleased(x, y, button)
+    elseif room == "options" then
+        options.mousereleased(x, y, button)
     end
 end

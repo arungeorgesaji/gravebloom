@@ -40,12 +40,28 @@ function quitGame()
 end
 
 function menu.load()
-    title = Text:new("GraveBloom", nil, 30, 30) 
+    title = Text:new("GraveBloom", nil, 30, 40) 
+
     startButton = Button:new("Start", nil, 100, 500, 60, startGame, 24, "neon")
     optionsButton = Button:new("Options", nil, 200, 500, 60, showOptions, 24, "neon")
     achievementsButton = Button:new("Achievements", nil, 300, 500, 60, showAchievements, 24, "neon")
     extrasButton = Button:new("Extras", nil, 400, 500, 60, showExtras, 24, "neon")
     quitButton = Button:new("Quit", nil, 500, 500, 60, quitGame, 24, "neon")
+
+    scrollSound = love.audio.newSource("audio/menu_scroll.wav", "static")
+    selectSound = love.audio.newSource("audio/menu_select.wav", "static")
+
+    scrollSound:setPitch(love.math.random(95,105)/100)
+    scrollSound:setVolume(0.01)
+    selectSound:setVolume(0.1)
+
+    buttons = {
+        startButton,
+        optionsButton,
+        achievementsButton,
+        extrasButton,
+        quitButton
+    }
     
     for i = 1, 150 do
         table.insert(effects.stars, {
@@ -80,11 +96,14 @@ function menu.load()
 end
 
 function menu.update(dt)
-    startButton:update(dt)
-    optionsButton:update(dt)
-    achievementsButton:update(dt)
-    extrasButton:update(dt)
-    quitButton:update(dt)
+    for _, b in ipairs(buttons) do
+        b:update(dt)
+
+        if b.hoverChanged then
+            scrollSound:stop()
+            scrollSound:play()
+        end
+    end
     
     local time = love.timer.getTime()
     
@@ -130,11 +149,10 @@ function menu.draw()
 end
 
 function menu.mousepressed(x, y, button)
-    startButton:mousepressed(x, y, button)
-    optionsButton:mousepressed(x, y, button)
-    achievementsButton:mousepressed(x, y, button)
-    extrasButton:mousepressed(x, y, button)
-    quitButton:mousepressed(x, y, button)
+    for _, b in ipairs(buttons) do
+        b:mousepressed(x, y, button)
+        love.audio.play(selectSound)
+    end
 end
 
 return menu

@@ -3,6 +3,12 @@ require("components/text")
 menu = require("rooms/menu")
 
 function love.load()
+    menuMusic = love.audio.newSource("audio/menu_music.mp3", "stream")
+
+    menuMusic:setLooping(true)
+    menuMusic:setVolume(0.5)
+    menuMusic:play()
+
     gameState = "menu"
     menu.load()
 end

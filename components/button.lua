@@ -1,6 +1,7 @@
 Button = {}
 Button.__index = Button
 
+-- style - "modern", "rounded", "gradient", "outline", "neon"
 function Button:new(text, x, y, width, height, action, size, style)
     width = width or 200
     height = height or 60
@@ -26,6 +27,7 @@ function Button:new(text, x, y, width, height, action, size, style)
         height = height,
         action = action,
         hover = false,
+        hoverChanged = false,
         pressed = false,
         style = style,
         font = love.graphics.newFont(size),
@@ -52,19 +54,25 @@ end
 
 function Button:update(dt)
     local mx, my = love.mouse.getPosition()
-    
+
     local wasHover = self.hover
-    self.hover = mx > self.x and mx < self.x + self.width and
-                 my > self.y and my < self.y + self.height
-    
+
+    self.hover =
+        mx > self.x and mx < self.x + self.width and
+        my > self.y and my < self.y + self.height
+
+    self.hoverChanged = self.hover and not wasHover
+
     if self.hover then
         self.targetScale = 1.05
     else
         self.targetScale = 1
     end
-    
-    self.hoverScale = self.hoverScale + (self.targetScale - self.hoverScale) * self.animationSpeed * dt
-    
+
+    self.hoverScale = self.hoverScale +
+        (self.targetScale - self.hoverScale) *
+        self.animationSpeed * dt
+
     if not self.hover then
         self.pressed = false
     end

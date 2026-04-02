@@ -2,22 +2,19 @@ local menu = {}
 local Background = require("components.background")
 
 function startGame()
-    room = "game"
+    changeRoom("game") 
 end
 
 function showOptions()
-    room = "options"
-    options.load()
+    changeRoom("options")
 end
 
 function showAchievements()
-    room = "achievements"
-    print("Achievements menu not implemented yet.")
+    changeRoom("achievements")
 end
 
 function showExtras()
-    room = "extras"
-    print("Extras menu not implemented yet.")
+    changeRoom("extras")
 end
 
 function quitGame()

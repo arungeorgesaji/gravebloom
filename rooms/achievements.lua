@@ -1,4 +1,4 @@
-local options = {}
+local achievements = {}
 local Background = require("components.background")
 local title
 
@@ -6,13 +6,13 @@ function goToMenu()
     changeRoom("menu")
 end
 
-function options.load()
+function achievements.load()
     Background.load()
-    title = Text:new("Options", nil, 30, 40) 
+    title = Text:new("Achievements", nil, 30, 40) 
     backButton = Button:new("Back", 30, 30, 120, 50, goToMenu, 20, "rounded")
 end
 
-function options.update(dt)
+function achievements.update(dt)
     Background.update(dt)
 
     if backButton and backButton.update then
@@ -20,7 +20,7 @@ function options.update(dt)
     end
 end 
 
-function options.draw()
+function achievements.draw()
     Background.draw()
     title:draw()
 
@@ -29,13 +29,13 @@ function options.draw()
     end
 end 
 
-function options.mousepressed(x, y, button)
+function achievements.mousepressed(x, y, button)
     if backButton and backButton.mousepressed then
         backButton:mousepressed(x, y, button)
     end
 end
 
-function options.mousereleased(x, y, button)
+function achievements.mousereleased(x, y, button)
     if backButton and backButton.mousereleased then
         if backButton.pressed and backButton.hover then
             love.audio.play(selectSound)
@@ -45,4 +45,4 @@ function options.mousereleased(x, y, button)
     end
 end
 
-return options
+return achievements

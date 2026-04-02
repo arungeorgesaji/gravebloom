@@ -1,6 +1,7 @@
 require("components.button")
 require("components.text")
 
+game = require("rooms.game")
 menu = require("rooms.menu")
 options = require("rooms.options")
 achievements = require("rooms.achievements")

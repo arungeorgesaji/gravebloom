@@ -59,6 +59,13 @@ function love.mousereleased(x, y, button)
     end
 end
 
+function love.keypressed(key)
+    local room = rooms[currentRoom]
+    if room and room.keypressed then
+        room.keypressed(key)
+    end
+end
+
 function changeRoom(newRoom)
     if rooms[newRoom] then
         local current = rooms[currentRoom]

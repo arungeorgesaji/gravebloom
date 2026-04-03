@@ -53,13 +53,16 @@ function Player:update(dt)
     end
 end
 
-function Player:draw()
+function Player:draw(cameraX, cameraY)
+    local dx = self.x - (cameraX or 0)
+    local dy = self.y - (cameraY or 0)
+
     love.graphics.setColor(0.9, 0.6, 0.4)
-    love.graphics.rectangle("fill", self.x, self.y, self.width, self.height)
+    love.graphics.rectangle("fill", dx, dy, self.width, self.height)
     
     love.graphics.setColor(1, 1, 1)
-    love.graphics.circle("fill", self.x + self.width * 0.7, self.y + self.height * 0.3, 4)
-    love.graphics.circle("fill", self.x + self.width * 0.3, self.y + self.height * 0.3, 4)
+    love.graphics.circle("fill", dx + self.width * 0.7, dy + self.height * 0.3, 4)
+    love.graphics.circle("fill", dx + self.width * 0.3, dy + self.height * 0.3, 4)
 end
 
 return Player

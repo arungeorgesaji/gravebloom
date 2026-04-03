@@ -26,6 +26,7 @@ end
 function game.keypressed(key)
     if key == "b" then
         local biomes = {"grave", "forest", "crystal", "ash"}
+        local biomes = {"grave", "forest", "crystal", "ash", "dream", "decay", "bloom", "abyss", "sunset", "frost", "miasma", "void"}
         local currentIndex = 1
         for i, name in ipairs(biomes) do
             if name == world.biome.name:lower() then

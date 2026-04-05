@@ -69,7 +69,7 @@ function game.draw()
     if world.isTransitioning then
         love.graphics.setColor(1, 0.8, 0.2, 0.9)
         love.graphics.print("TRANSITIONING: " .. string.format("%.0f%%", world.transitionProgress * 100), 10, 30)
-        love.graphics.print("From: " .. world.transitionStartBiome, 10, 50)
+        love.graphics.print("From: " .. world.currentBiomeName, 10, 50)
         love.graphics.print("To: " .. world.transitionEndBiome, 10, 70)
     end
     

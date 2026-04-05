@@ -1,5 +1,5 @@
 local game = {}
-local World = require("components.world")
+local World = require("world.world")
 local Player = require("components.player")
 
 local world

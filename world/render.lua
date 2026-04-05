@@ -35,8 +35,14 @@ end
 function Render.generateSkyElements(world)
     world.skyElements = {}
     local b = world:getActiveBiome()
+    
+    local particleMult = b.atmosphere.particleDensity or 1.0
 
-    for _ = 1, math.random(b.sporeCount[1], b.sporeCount[2]) do
+    local sporeCount = math.floor(math.random(b.sporeCount[1], b.sporeCount[2]) * particleMult)
+    local birdCount = math.floor(math.random(b.birdCount[1], b.birdCount[2]) * particleMult)
+    local dustCount = math.floor(math.random(b.dustCount[1], b.dustCount[2]) * particleMult)
+
+    for _ = 1, sporeCount do
         table.insert(world.skyElements, {
             type     = "spore",
             x        = math.random(0, world.width * world.tileSize),
@@ -51,7 +57,7 @@ function Render.generateSkyElements(world)
         })
     end
 
-    for _ = 1, math.random(b.birdCount[1], b.birdCount[2]) do
+    for _ = 1, birdCount do
         table.insert(world.skyElements, {
             type      = "bird",
             x         = math.random(0, world.width * world.tileSize),
@@ -64,7 +70,7 @@ function Render.generateSkyElements(world)
         })
     end
 
-    for _ = 1, math.random(b.dustCount[1], b.dustCount[2]) do
+    for _ = 1, dustCount do
         table.insert(world.skyElements, {
             type   = "dust",
             x      = math.random(0, world.width * world.tileSize),
@@ -92,8 +98,24 @@ function Render.draw(world, cameraX, cameraY)
         love.graphics.line(0, i, screenW, i)
     end
 
+    if b.atmosphere.ambientLight then
+        local originalBlend = love.graphics.getBlendMode()
+        love.graphics.setBlendMode("multiply", "premultiplied")
+        
+        love.graphics.setColor(
+            b.atmosphere.ambientLight[1],
+            b.atmosphere.ambientLight[2],
+            b.atmosphere.ambientLight[3],
+            1.0
+        )
+        love.graphics.rectangle("fill", 0, 0, screenW, screenH)
+        
+        love.graphics.setBlendMode(originalBlend)
+    end
+
     for _, cloud in ipairs(world.clouds) do
-        local dx = cloud.x - cameraX
+        local windOffset = b.atmosphere.windStrength and b.atmosphere.windStrength * love.timer.getTime() * 10 or 0
+        local dx = cloud.x - cameraX + windOffset
         local dy = cloud.y - cameraY
         love.graphics.setColor(b.cloudColor[1], b.cloudColor[2], b.cloudColor[3], b.cloudAlpha)
         for _, seg in ipairs(cloud.segments) do
@@ -106,6 +128,10 @@ function Render.draw(world, cameraX, cameraY)
         local dy = el.y - cameraY
 
         if el.type == "spore" then
+            if b.atmosphere.windStrength then
+                dx = dx + b.atmosphere.windStrength * love.timer.getTime() * 20
+            end
+            
             love.graphics.setColor(el.color[1], el.color[2], el.color[3], el.alpha)
             love.graphics.circle("fill", dx, dy, el.size)
             love.graphics.setColor(el.color[1], el.color[2], el.color[3], el.alpha * 0.5)

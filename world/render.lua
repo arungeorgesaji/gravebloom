@@ -6,15 +6,6 @@ local lerpColor = utils.lerpColor
 
 local Render = {}
 
-local DEBUG_COLORS = {
-    grave  = {0.5, 0.3, 0.6}, forest  = {0.3, 0.6, 0.3},
-    crystal= {0.4, 0.4, 0.8}, ash     = {0.5, 0.4, 0.4},
-    dream  = {0.7, 0.4, 0.8}, decay   = {0.4, 0.3, 0.3},
-    bloom  = {0.8, 0.5, 0.7}, abyss   = {0.2, 0.2, 0.3},
-    sunset = {0.8, 0.5, 0.4}, frost   = {0.4, 0.6, 0.8},
-    miasma = {0.5, 0.6, 0.3}, void    = {0.1, 0.1, 0.2},
-}
-
 function Render.generateClouds(world)
     world.clouds = {}
     local b = world:getActiveBiome()
@@ -185,12 +176,14 @@ function Render.draw(world, cameraX, cameraY)
 end
 
 function Render.drawDebugOverlay(world, cameraX, cameraY)
+    local b = world:getActiveBiome()
+
     love.graphics.setFont(love.graphics.newFont(10))
     for x = 1, world.width, 4 do
         for y = 1, world.height, 4 do
             local name = world.biomeMap:getBiomeAt((x-1)*world.tileSize, (y-1)*world.tileSize)
             if name then
-                local c = DEBUG_COLORS[name] or {1, 1, 1}
+                local c = b.debugColor or {1, 1, 1}
                 love.graphics.setColor(c[1], c[2], c[3], 0.5)
                 love.graphics.rectangle("fill",
                     (x-1)*world.tileSize - cameraX, (y-1)*world.tileSize - cameraY,

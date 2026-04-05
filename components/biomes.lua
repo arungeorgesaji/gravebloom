@@ -17,6 +17,7 @@ local biomes = {
         sporeCount = {30, 50},
         birdCount = {3, 8},
         dustCount = {50, 80},
+        debugColor = {0.5, 0.3, 0.6}, 
         
         atmosphere = {
             fogDensity = 0.3,
@@ -86,6 +87,7 @@ local biomes = {
         sporeCount = {40, 70},
         birdCount = {5, 12},
         dustCount = {60, 100},
+        debugColor = {0.3, 0.6, 0.3}, 
         
         atmosphere = {
             fogDensity = 0.15,
@@ -155,6 +157,7 @@ local biomes = {
         sporeCount = {50, 80},
         birdCount = {2, 5},
         dustCount = {70, 120},
+        debugColor = {0.4, 0.4, 0.8},
         
         atmosphere = {
             fogDensity = 0.2,
@@ -224,6 +227,7 @@ local biomes = {
         sporeCount = {20, 40},
         birdCount = {1, 3},
         dustCount = {40, 60},
+        debugColor = {0.5, 0.4, 0.4},
         
         atmosphere = {
             fogDensity = 0.45,
@@ -293,6 +297,7 @@ local biomes = {
         sporeCount = {60, 90},
         birdCount = {4, 10},
         dustCount = {80, 130},
+        debugColor = {0.7, 0.4, 0.8},
         
         atmosphere = {
             fogDensity = 0.25,
@@ -362,6 +367,7 @@ local biomes = {
         sporeCount = {25, 45},
         birdCount = {2, 5},
         dustCount = {45, 70},
+        debugColor = {0.4, 0.3, 0.3},
         
         atmosphere = {
             fogDensity = 0.35,
@@ -431,6 +437,7 @@ local biomes = {
         sporeCount = {55, 85},
         birdCount = {6, 14},
         dustCount = {90, 140},
+        debugColor = {0.8, 0.5, 0.7},
         
         atmosphere = {
             fogDensity = 0.18,
@@ -500,6 +507,7 @@ local biomes = {
         sporeCount = {15, 30},
         birdCount = {1, 4},
         dustCount = {30, 50},
+        debugColor = {0.2, 0.2, 0.3},
         
         atmosphere = {
             fogDensity = 0.55,
@@ -569,6 +577,7 @@ local biomes = {
         sporeCount = {35, 55},
         birdCount = {4, 9},
         dustCount = {55, 85},
+        debugColor = {0.8, 0.5, 0.4},
         
         atmosphere = {
             fogDensity = 0.12,
@@ -638,6 +647,7 @@ local biomes = {
         sporeCount = {35, 60},
         birdCount = {3, 7},
         dustCount = {50, 75},
+        debugColor = {0.4, 0.6, 0.8},
         
         atmosphere = {
             fogDensity = 0.28,
@@ -707,6 +717,7 @@ local biomes = {
         sporeCount = {45, 75},
         birdCount = {2, 6},
         dustCount = {65, 95},
+        debugColor = {0.5, 0.6, 0.3},
         
         atmosphere = {
             fogDensity = 0.5,
@@ -776,6 +787,7 @@ local biomes = {
         sporeCount = {10, 20},
         birdCount = {0, 2},
         dustCount = {20, 35},
+        debugColor = {0.1, 0.1, 0.2},
         
         atmosphere = {
             fogDensity = 0.7,

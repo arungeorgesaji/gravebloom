@@ -2,7 +2,9 @@ local World      = {}
 local biomes     = require("components.biomes")
 local BiomeMap   = require("components.biome_map")
 local Transition = require("world.transition")
-local Render     = require("world.render")
+local Render     = require("world.render.core")
+local CloudGenerator = require("world.generation.clouds")
+local SkyElementGenerator = require("world.generation.sky_elements")
 
 function World:new(width, height, tileSize)
     local obj = {
@@ -54,8 +56,8 @@ function World:generate()
     self:generateSkyElements()
 end
 
-function World:generateClouds()        Render.generateClouds(self)      end
-function World:generateSkyElements()   Render.generateSkyElements(self) end
+function World:generateClouds()        CloudGenerator.generate(self)      end
+function World:generateSkyElements()   SkyElementGenerator.generate(self) end
 function World:regenerateCurrentArea() self:generateClouds(); self:generateSkyElements() end
 
 function World:setBiome(biomeName, instant)

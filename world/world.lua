@@ -140,7 +140,18 @@ function World:isGround(x, y)
     local tx = math.floor(x / self.tileSize) + 1
     local ty = math.floor(y / self.tileSize) + 1
     if tx < 1 or tx > self.width or ty < 1 or ty > self.height then return true end
-    return self.tiles[tx][ty] == "ground"
+
+    local tileBiomeName = self.biomeMap:getBiomeAt((tx-1)*self.tileSize, (ty-1)*self.tileSize)
+    local tileBiome = biomes[tileBiomeName] or biomes.grave
+    local heightVariation = tileBiome.terrain.heightVariation
+
+    local noiseVal = math.sin(tx * 0.15) * 0.5 + math.sin(tx * 0.37) * 0.3
+    local heightOffset = (heightVariation > 0) and math.floor(noiseVal * heightVariation) or 0
+
+    local lookupTy = ty - heightOffset
+    if lookupTy < 1 or lookupTy > self.height then return true end
+
+    return self.tiles[tx][lookupTy] == "ground"
 end
 
 return World

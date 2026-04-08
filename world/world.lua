@@ -56,8 +56,8 @@ function World:generate()
     self:generateSkyElements()
 end
 
-function World:generateClouds()        CloudGenerator.generate(self)      end
-function World:generateSkyElements()   SkyElementGenerator.generate(self) end
+function World:generateClouds()        self.clouds = CloudGenerator.generate(self)      end
+function World:generateSkyElements()   self.skyElements = SkyElementGenerator.generate(self) end
 function World:regenerateCurrentArea() self:generateClouds(); self:generateSkyElements() end
 
 function World:setBiome(biomeName, instant)

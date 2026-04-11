@@ -5,6 +5,7 @@ local Transition = require("world.transition")
 local Render     = require("world.render.core")
 local CloudGenerator = require("world.generation.clouds")
 local SkyElementGenerator = require("world.generation.sky_elements")
+local GroundDecorations = require("world.generation.ground_decorations")
 
 function World:new(width, height, tileSize)
     local obj = {
@@ -13,6 +14,7 @@ function World:new(width, height, tileSize)
         tileSize = tileSize or 32,
 
         tiles       = {},
+        groundDecorations = {},
         clouds      = {},
         skyElements = {},
         biomeMap    = nil,
@@ -52,10 +54,12 @@ function World:generate()
         end
     end
 
+    -- self:generateGroundDecorations()
     self:generateClouds()
     self:generateSkyElements()
 end
 
+function World:generateGroundDecorations() self.groundDecorations = GroundDecorations.generate(self) end
 function World:generateClouds()        self.clouds = CloudGenerator.generate(self)      end
 function World:generateSkyElements()   self.skyElements = SkyElementGenerator.generate(self) end
 function World:regenerateCurrentArea() self:generateClouds(); self:generateSkyElements() end

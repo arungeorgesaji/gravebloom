@@ -27,9 +27,9 @@ function Transition.getActiveBiome(world)
         groundColor     = lerpColor(s.groundColor, g.groundColor, t),
         groundVariation = lerpN(s.groundVariation, g.groundVariation, t),
         groundY         = math.floor(lerpN(s.groundY, g.groundY, t)),
-
         cloudColor  = lerpColor(s.cloudColor, g.cloudColor, t),
         cloudAlpha  = lerpN(s.cloudAlpha, g.cloudAlpha, t),
+
         cloudYRange = {
             lerpN(s.cloudYRange[1], g.cloudYRange[1], t),
             lerpN(s.cloudYRange[2], g.cloudYRange[2], t),
@@ -38,15 +38,18 @@ function Transition.getActiveBiome(world)
         sporeColor = lerpColor(s.sporeColor, g.sporeColor, t),
         birdColor  = lerpColor(s.birdColor,  g.birdColor,  t),
         dustColor  = lerpColor(s.dustColor,  g.dustColor,  t),
+        debugColor = lerpColor(s.debugColor, g.debugColor, t),
 
         sporeCount = {
             math.floor(lerpN(s.sporeCount[1], g.sporeCount[1], t)),
             math.floor(lerpN(s.sporeCount[2], g.sporeCount[2], t)),
         },
+
         birdCount = {
             math.floor(lerpN(s.birdCount[1], g.birdCount[1], t)),
             math.floor(lerpN(s.birdCount[2], g.birdCount[2], t)),
         },
+
         dustCount = {
             math.floor(lerpN(s.dustCount[1], g.dustCount[1], t)),
             math.floor(lerpN(s.dustCount[2], g.dustCount[2], t)),
@@ -65,6 +68,12 @@ function Transition.getActiveBiome(world)
             caveDensity     = lerpN(s.terrain.caveDensity,     g.terrain.caveDensity,     t),
             treeDensity     = lerpN(s.terrain.treeDensity,     g.terrain.treeDensity,     t),
             grassDensity    = lerpN(s.terrain.grassDensity,    g.terrain.grassDensity,    t),
+            oreRarity = {
+                stone   = lerpN(s.terrain.oreRarity.stone,   g.terrain.oreRarity.stone,   t),
+                iron    = lerpN(s.terrain.oreRarity.iron,    g.terrain.oreRarity.iron,    t),
+                gold    = lerpN(s.terrain.oreRarity.gold,    g.terrain.oreRarity.gold,    t),
+                crystal = lerpN(s.terrain.oreRarity.crystal, g.terrain.oreRarity.crystal, t),
+            },
         },
 
         weather = {
@@ -75,11 +84,24 @@ function Transition.getActiveBiome(world)
             humidity    = lerpN(s.weather.humidity,    g.weather.humidity,    t),
         },
 
+        entities = {
+            mobSpawnRate = lerpN(s.entities.mobSpawnRate, g.entities.mobSpawnRate, t),
+            passiveMobs  = t < 0.5 and s.entities.passiveMobs or g.entities.passiveMobs,
+            hostileMobs  = t < 0.5 and s.entities.hostileMobs or g.entities.hostileMobs,
+            plantLife    = t < 0.5 and s.entities.plantLife   or g.entities.plantLife,
+        },
+
         effects = {
             screenShake    = lerpN(s.effects.screenShake, g.effects.screenShake, t),
             musicTrack     = t < 0.5 and s.effects.musicTrack     or g.effects.musicTrack,
             ambientSound   = t < 0.5 and s.effects.ambientSound   or g.effects.ambientSound,
             particleEffect = t < 0.5 and s.effects.particleEffect or g.effects.particleEffect,
+        },
+
+        transitions = {
+            allowedNeighbors = t < 0.5 and s.transitions.allowedNeighbors or g.transitions.allowedNeighbors,
+            transitionWidth  = lerpN(s.transitions.transitionWidth, g.transitions.transitionWidth, t),
+            blendMode        = t < 0.5 and s.transitions.blendMode or g.transitions.blendMode,
         },
     }
 end

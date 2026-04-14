@@ -21,7 +21,6 @@ function Mob:new(world, type, x, y, biomeData)
         biomeData = biomeData,
     }
     setmetatable(obj, self)
-    self.__index = self
     return obj
 end
 

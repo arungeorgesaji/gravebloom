@@ -12,6 +12,8 @@ function game.load()
     world = World:new(1000, 60, 32) 
     world:generate()
     player = Player:new(world)
+
+    world.player = player
     
     player.x = world.width * world.tileSize / 2
     player.y = (world.currentBiome.groundY - 2) * world.tileSize
@@ -19,10 +21,6 @@ end
 
 function game.update(dt)
     player:update(dt)
-
-    if world.mobSpawner then
-        world.mobSpawner:update(dt, player)
-    end
 
     world:updateBiomeAt(
         player.x + player.width/2,

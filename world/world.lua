@@ -48,6 +48,14 @@ end
 function World:generate()
     self.biomeMap = BiomeMap:new(self.width, self.height, self.tileSize, { startBiome = "forest" })
 
+    spawnX = self.width * self.tileSize / 2
+    spawnY = (self.currentBiome.groundY - 2) * self.tileSize
+
+    local bName = self.biomeMap:getBiomeAt(spawnX, spawnY)
+
+    self.currentBiomeName = bName
+    self.currentBiome = biomes[bName] or biomes.grave
+
     for x = 1, self.width do
         self.tiles[x] = {}
         for y = 1, self.height do
@@ -57,7 +65,7 @@ function World:generate()
         end
     end
 
-    self.mobSpawner = MobSpawner:new(self, self.currentBiome)
+    self.mobSpawner = MobSpawner:new(self, self.player)
 
     -- self:generateGroundDecorations()
     self:generateClouds()
@@ -112,8 +120,12 @@ function World:updateBiomeAt(playerX, playerY)
     Transition.updateBiomeAt(self, playerX, playerY)
 end
 
-function World:update(dt)
+function World:update(dt, player)
     Transition.updateTimeBased(self, dt)
+
+    if self.mobSpawner then
+        self.mobSpawner:update(dt, self.player)
+    end
 
     for _, cloud in ipairs(self.clouds) do
         cloud.x = cloud.x + cloud.speed * dt * 60
@@ -148,6 +160,10 @@ end
 
 function World:draw(cameraX, cameraY)
     Render.draw(self, cameraX, cameraY)
+
+    if self.mobSpawner then
+        self.mobSpawner:draw(cameraX, cameraY)
+    end
 end
 
 function World:isGround(x, y)

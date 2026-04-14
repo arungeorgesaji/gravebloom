@@ -135,8 +135,7 @@ function MobSpawner:draw(cameraX, cameraY)
 end
 
 function MobSpawner:initialSpawn(player)
-    local maxMobs     = 20
-    local targetCount = math.floor(maxMobs * 0.5)  
+    local targetCount = 5  
 
     debugPrint("Initial spawn: targeting " .. targetCount .. " mobs")
     for i = 1, targetCount do

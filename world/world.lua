@@ -6,6 +6,7 @@ local Render     = require("world.render.core")
 local CloudGenerator = require("world.generation.clouds")
 local SkyElementGenerator = require("world.generation.sky_elements")
 local GroundDecorations = require("world.generation.ground_decorations")
+local MobSpawner = require("mobs.mob_spawner")
 
 function World:new(width, height, tileSize)
     local obj = {
@@ -21,6 +22,8 @@ function World:new(width, height, tileSize)
 
         currentBiome     = biomes.grave,
         currentBiomeName = "grave",
+
+        mobSpawner = nil,
 
         isTransitioning    = false,
         transitionProgress = 1,
@@ -43,7 +46,7 @@ function World:getActiveBiome()
 end
 
 function World:generate()
-    self.biomeMap = BiomeMap:new(self.width, self.height, self.tileSize)
+    self.biomeMap = BiomeMap:new(self.width, self.height, self.tileSize, { startBiome = "forest" })
 
     for x = 1, self.width do
         self.tiles[x] = {}
@@ -53,6 +56,8 @@ function World:generate()
             self.tiles[x][y] = y >= biome.groundY and "ground" or "air"
         end
     end
+
+    self.mobSpawner = MobSpawner:new(self, self.currentBiome)
 
     -- self:generateGroundDecorations()
     self:generateClouds()
@@ -90,6 +95,11 @@ function World:setBiome(biomeName, instant)
         self.targetBiome       = biomes[biomeName]
         self.isTransitioning   = false
         self.transitionProgress = 1
+
+        if self.mobSpawner then
+            self.mobSpawner:setBiome(self.currentBiome)
+        end
+
         self:generate()
         print("Instant-set biome: " .. self.currentBiome.name)
     else
@@ -134,7 +144,7 @@ function World:update(dt)
             end
         end
     end
-end
+end 
 
 function World:draw(cameraX, cameraY)
     Render.draw(self, cameraX, cameraY)

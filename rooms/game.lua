@@ -20,6 +20,10 @@ end
 function game.update(dt)
     player:update(dt)
 
+    if world.mobSpawner then
+        world.mobSpawner:update(dt, player)
+    end
+
     world:updateBiomeAt(
         player.x + player.width/2,
         player.y + player.height/2,

@@ -12,6 +12,10 @@ function Render.draw(world, cameraX, cameraY)
     local screenH = love.graphics.getHeight()
     local biome = world:getActiveBiome()
 
+    if world.mobSpawner then
+        world.mobSpawner:draw(cameraX, cameraY)
+    end
+
     SkyRenderer.drawGradient(screenW, screenH, biome)
     SkyRenderer.drawAmbientLight(screenW, screenH, biome)
 

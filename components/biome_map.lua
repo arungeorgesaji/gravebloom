@@ -3,14 +3,15 @@ local biomes = require("components.biomes")
 local BiomeMap = {}
 BiomeMap.__index = BiomeMap
 
-function BiomeMap:new(width, height, tileSize)
+function BiomeMap:new(width, height, tileSize, options)
     local obj = {
         width = width,
         height = height,
         tileSize = tileSize,
         biomeGrid = {},
         transitionWidth = 8, 
-        biomeTypes = {"grave", "forest", "crystal", "ash", "dream", "decay", "bloom", "abyss", "sunset", "frost", "miasma", "void"}
+        biomeTypes = {"grave", "forest", "crystal", "ash", "dream", "decay", "bloom", "abyss", "sunset", "frost", "miasma", "void"},
+        forcedStartBiome = options and options.startBiome,
     }
     
     setmetatable(obj, self)
@@ -29,12 +30,38 @@ function BiomeMap:generateBiomeMap()
     local numRegions = 12
     local centers = {}
     
-    for i = 1, numRegions do
-        centers[i] = {
-            x = math.random(10, self.width - 30),
-            y = math.random(5, self.height - 5),
-            biome = self.biomeTypes[math.random(#self.biomeTypes)]
+     if self.forcedStartBiome then
+        local startX = math.floor(self.width / 2)
+        local startY = math.floor(self.height / 2)
+        
+        centers[1] = {
+            x = startX,
+            y = startY,
+            biome = self.forcedStartBiome
         }
+        
+        local availableBiomes = {}
+        for _, biome in ipairs(self.biomeTypes) do
+            if biome ~= self.forcedStartBiome then
+                table.insert(availableBiomes, biome)
+            end
+        end
+        
+        for i = 2, numRegions do
+            centers[i] = {
+                x = math.random(10, self.width - 30),
+                y = math.random(5, self.height - 5),
+                biome = availableBiomes[math.random(#availableBiomes)]
+            }
+        end
+    else
+        for i = 1, numRegions do
+            centers[i] = {
+                x = math.random(10, self.width - 30),
+                y = math.random(5, self.height - 5),
+                biome = self.biomeTypes[math.random(#self.biomeTypes)]
+            }
+        end
     end
     
     for x = 1, self.width do

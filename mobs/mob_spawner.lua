@@ -3,8 +3,55 @@ MobSpawner.__index = MobSpawner
 
 local DEBUG = true
 
+local mobRegistry = {}
+
 local mobRegistry = {
-    rabbit = require("mobs.mobs.rabbit"), 
+    rabbit = require("mobs.rabbit"),
+    abomination = require("mobs.abomination"),
+    abyss_worm = require("mobs.abyss_worm"),
+    ash_lizard = require("mobs.ash_lizard"),
+    bear = require("mobs.bear"),
+    bird = require("mobs.bird"),
+    bloom_sprite = require("mobs.bloom_sprite"),
+    butterfly = require("mobs.butterfly"),
+    crystal_butterfly = require("mobs.crystal_butterfly"),
+    crystal_golem = require("mobs.crystal_golem"),
+    decayed_zombie = require("mobs.decayed_zombie"),
+    deep_fish = require("mobs.deep_fish"),
+    deer = require("mobs.deer"),
+    dream_cat = require("mobs.dream_cat"),
+    dream_eater = require("mobs.dream_eater"),
+    dusk_wolf = require("mobs.dusk_wolf"),
+    evening_bird = require("mobs.evening_bird"),
+    fairy = require("mobs.fairy"),
+    fire_spirit = require("mobs.fire_spirit"),
+    frost_wolf = require("mobs.frost_wolf"),
+    fungus_beetle = require("mobs.fungus_beetle"),
+    ghost = require("mobs.ghost"),
+    ice_elemental = require("mobs.ice_elemental"),
+    ice_fox = require("mobs.ice_fox"),
+    magma_crawler = require("mobs.magma_crawler"),
+    miasma_wraith = require("mobs.miasma_wraith"),
+    mothling = require("mobs.mothling"),
+    nightmare = require("mobs.nightmare"),
+    plague_rat = require("mobs.plague_rat"),
+    poison_flower = require("mobs.poison_flower"),
+    rot_worm = require("mobs.rot_worm"),
+    shadow_beast = require("mobs.shadow_beast"),
+    shardling = require("mobs.shardling"),
+    shard_spider = require("mobs.shard_spider"),
+    skeleton = require("mobs.skeleton"),
+    slime = require("mobs.slime"),
+    snow_rabbit = require("mobs.snow_rabbit"),
+    thorn_vine = require("mobs.thorn_vine"),
+    toxic_spitter = require("mobs.toxic_spitter"),
+    twilight_bat = require("mobs.twilight_bat"),
+    void_beast = require("mobs.void_beast"),
+    void_spawn = require("mobs.void_spawn"),
+    void_whisper = require("mobs.void_whisper"),
+    wisp = require("mobs.wisp"),
+    wolf = require("mobs.wolf"),
+    zombie = require("mobs.zombie"),
 }
 
 local function debugPrint(msg)
@@ -82,8 +129,7 @@ function MobSpawner:trySpawnMob(player)
         return
     end
 
-    -- local mobName  = mobTypes[math.random(#mobTypes)]
-    local mobName = "rabbit"
+    local mobName  = mobTypes[math.random(#mobTypes)]
     local mobClass = mobRegistry[mobName]
 
     if not mobClass then

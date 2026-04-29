@@ -6,7 +6,7 @@ local Render     = require("world.render.core")
 local CloudGenerator = require("world.generation.clouds")
 local SkyElementGenerator = require("world.generation.sky_elements")
 local GroundDecorations = require("world.generation.ground_decorations")
-local MobSpawner = require("mobs.mob_spawner")
+local MobSpawner = require("components.mob_spawner")
 
 function World:new(width, height, tileSize)
     local obj = {

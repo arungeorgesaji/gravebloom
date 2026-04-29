@@ -4,7 +4,7 @@ MobSpawner.__index = MobSpawner
 local DEBUG = true
 
 local mobRegistry = {
-    rabbit = require("mobs.rabbit"),
+    rabbit = require("mobs.mobs.rabbit"), 
 }
 
 local function debugPrint(msg)
